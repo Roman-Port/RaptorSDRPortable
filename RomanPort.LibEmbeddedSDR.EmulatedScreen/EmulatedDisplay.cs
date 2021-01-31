@@ -8,19 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
-using RomanPort.LibEmbeddedSDR.Framework.Display;
-using RomanPort.LibSDR.Framework.Util;
 using System.Drawing.Drawing2D;
+using RomanPort.LibSDR.Components;
+using RomanPort.LibEmbeddedSDR.Framework.Drawing;
 
 namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
 {
-    public unsafe partial class EmulatedDisplay : UserControl
+    public unsafe partial class EmulatedDisplay : UserControl, ISdrDisplay
     {
         public EmulatedDisplay()
         {
             InitializeComponent();
-            display = new EmulatedDisplaySession(ClientRectangle.Width, ClientRectangle.Height, this);
-            buffer = new Bitmap(ClientRectangle.Width, ClientRectangle.Height, PixelFormat.Format32bppArgb);
+
+            //Get size
+            imageWidth = ClientRectangle.Width;
+            imageHeight = ClientRectangle.Height;
+
+            //Make buffer
+            buffer = UnsafeBuffer.Create(imageWidth * imageHeight, sizeof(DisplayPixel));
+            bufferPtr = (DisplayPixel*)buffer;
+
+            //Make image
+            image = new Bitmap(imageWidth, imageHeight, imageWidth * sizeof(DisplayPixel), PixelFormat.Format32bppArgb, (IntPtr)bufferPtr);
+
+            //Configure
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
             SetStyle(ControlStyles.UserPaint, true);
@@ -28,26 +39,18 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
             UpdateStyles();
         }
 
-        public EmulatedDisplaySession display;
-        private Bitmap buffer;
-
-        public void UpdateBuffer(DisplayPixel* ptr)
-        {
-            Invoke((MethodInvoker)delegate
-            {
-                var bits = buffer.LockBits(new Rectangle(0, 0, buffer.Width, buffer.Height), ImageLockMode.ReadWrite, buffer.PixelFormat);
-                Utils.Memcpy((void*)bits.Scan0, ptr, buffer.Width * buffer.Height * sizeof(DisplayPixel));
-                buffer.UnlockBits(bits);
-                Invalidate();
-            });
-        }
+        private UnsafeBuffer buffer;
+        private DisplayPixel* bufferPtr;
+        private Bitmap image;
+        private int imageWidth;
+        private int imageHeight;
 
         protected override void OnPaint(PaintEventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
                 ConfigureGraphics(e.Graphics);
-                e.Graphics.DrawImageUnscaled(buffer, 0, 0);
+                e.Graphics.DrawImageUnscaled(image, 0, 0);
             });
         }
 
@@ -60,9 +63,36 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
             graphics.InterpolationMode = InterpolationMode.High;
         }
 
-        public Bitmap GetBuffer()
+        public Bitmap GetSnapshot()
         {
-            return buffer;
+            Bitmap bmp = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppArgb);
+            var data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            Utils.Memcpy((void*)data.Scan0, bufferPtr, imageWidth * imageHeight * sizeof(DisplayPixel));
+            bmp.UnlockBits(data);
+            return bmp;
+        }
+
+        public void Apply()
+        {
+            Invalidate();
+        }
+
+        int IDrawingContext.Width { get => imageWidth; }
+        int IDrawingContext.Height { get => imageHeight; }
+
+        public void WritePixel(int offsetX, int offsetY, DisplayPixel pixel)
+        {
+            bufferPtr[offsetX + (imageWidth * offsetY)] = pixel;
+        }
+
+        public DisplayPixel* GetPixelPointer(int offsetX, int offsetY)
+        {
+            return bufferPtr + offsetX + (imageWidth * offsetY);
+        }
+
+        public IDrawingContext GetOffsetContext(int offsetX, int offsetY)
+        {
+            return new OffsetDrawingContext(offsetX, offsetY, this);
         }
     }
 }

@@ -13,8 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Framework\Rendering\**" />
+    <Compile Remove="Framework\UI\**" />
     <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Framework\Rendering\**" />
+    <EmbeddedResource Remove="Framework\UI\**" />
     <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Framework\Rendering\**" />
+    <None Remove="Framework\UI\**" />
     <None Remove="Resources\**" />
   </ItemGroup>
 
@@ -23,12 +29,22 @@
     <None Remove="Assets\FONT_SYSTEM_REGULAR_20.sdrfnt" />
     <None Remove="Assets\IMG_STARTUP_LOGO.png" />
     <None Remove="Assets\IMG_STARTUP_LOGO.sdrimg" />
+    <None Remove="Assets\SYSTEM_BOLD_10.sdrf" />
+    <None Remove="Assets\SYSTEM_BOLD_15.sdrf" />
+    <None Remove="Assets\SYSTEM_BOLD_20.sdrf" />
+    <None Remove="Assets\SYSTEM_REGULAR_10.sdrf" />
+    <None Remove="Assets\SYSTEM_REGULAR_15.sdrf" />
+    <None Remove="Assets\SYSTEM_REGULAR_20.sdrf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\FONT_SYSTEM_REGULAR_15.sdrfnt" />
-    <EmbeddedResource Include="Assets\FONT_SYSTEM_REGULAR_20.sdrfnt" />
     <EmbeddedResource Include="Assets\IMG_STARTUP_LOGO.sdrimg" />
+    <EmbeddedResource Include="Assets\SYSTEM_BOLD_10.sdrf" />
+    <EmbeddedResource Include="Assets\SYSTEM_BOLD_15.sdrf" />
+    <EmbeddedResource Include="Assets\SYSTEM_BOLD_20.sdrf" />
+    <EmbeddedResource Include="Assets\SYSTEM_REGULAR_10.sdrf" />
+    <EmbeddedResource Include="Assets\SYSTEM_REGULAR_15.sdrf" />
+    <EmbeddedResource Include="Assets\SYSTEM_REGULAR_20.sdrf" />
   </ItemGroup>
 
   <ItemGroup>

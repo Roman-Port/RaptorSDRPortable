@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RomanPort.LibEmbeddedSDR.Loader": {
+      "commandName": "Project",
+      "commandLineArgs": "temp\\"
+    }
+  }
+}

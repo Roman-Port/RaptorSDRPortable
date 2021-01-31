@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RomanPort.LibEmbeddedSDR.Tools.FontPackGenerator")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fd21dcc1-1395-4e17-972b-ca2db76df38a")]
+[assembly: Guid("5519e37f-43c8-4120-b561-eb1b10c366c6")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\RomanPort.LibEmbeddedSDR\RomanPort.LibEmbeddedSDR.csproj" />
   </ItemGroup>
 
+  <Target Name="CustomActionsAfterPublish" AfterTargets="AfterPublish">
+    <Exec Command="&quot;C:\Users\Roman\source\repos\RomanPort.EmbeddedSDR\RomanPort.LibEmbeddedSDR.LoaderCLI\bin\Debug\netcoreapp3.1\RomanPort.LibEmbeddedSDR.LoaderCLI.exe&quot; 10.0.1.55 upgrade DEBUG C:\Users\Roman\source\repos\RomanPort.EmbeddedSDR\RomanPort.LibEmbeddedSDR.LinuxCMD\bin\Published\ RomanPort.LibEmbeddedSDR.LinuxCMD" />
+  </Target>
+
 </Project>

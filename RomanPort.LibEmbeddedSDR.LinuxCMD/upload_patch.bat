@@ -1,0 +1,1 @@
+C:\Users\Roman\source\repos\RomanPort.EmbeddedSDR\RomanPort.LibEmbeddedSDR.LoaderCLI\bin\Debug\netcoreapp3.1\RomanPort.LibEmbeddedSDR.LoaderCLI.exe 10.0.1.55 upgrade DEBUG C:\Users\Roman\source\repos\RomanPort.EmbeddedSDR\RomanPort.LibEmbeddedSDR.LinuxCMD\bin\Published\ RomanPort.LibEmbeddedSDR.LinuxCMD

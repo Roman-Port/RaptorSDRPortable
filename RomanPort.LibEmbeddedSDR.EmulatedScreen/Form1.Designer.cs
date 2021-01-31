@@ -40,6 +40,8 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
             this.btnControlC = new System.Windows.Forms.Button();
             this.emulatedDisplay1 = new RomanPort.LibEmbeddedSDR.EmulatedScreen.EmulatedDisplay();
             this.btnScreencap = new System.Windows.Forms.Button();
+            this.volumeBar = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).BeginInit();
             this.SuspendLayout();
             // 
             // btnForceRedraw
@@ -156,11 +158,23 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
             this.btnScreencap.UseVisualStyleBackColor = true;
             this.btnScreencap.Click += new System.EventHandler(this.btnScreencap_Click);
             // 
+            // volumeBar
+            // 
+            this.volumeBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.volumeBar.Location = new System.Drawing.Point(266, 876);
+            this.volumeBar.Maximum = 12;
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(118, 45);
+            this.volumeBar.TabIndex = 10;
+            this.volumeBar.Value = 8;
+            this.volumeBar.Scroll += new System.EventHandler(this.volumeBar_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 907);
+            this.Controls.Add(this.volumeBar);
             this.Controls.Add(this.btnScreencap);
             this.Controls.Add(this.btnControlC);
             this.Controls.Add(this.btnControlB);
@@ -173,7 +187,9 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
             this.Controls.Add(this.emulatedDisplay1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.volumeBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -189,6 +205,7 @@ namespace RomanPort.LibEmbeddedSDR.EmulatedScreen
         private System.Windows.Forms.Button btnControlB;
         private System.Windows.Forms.Button btnControlC;
         private System.Windows.Forms.Button btnScreencap;
+        private System.Windows.Forms.TrackBar volumeBar;
     }
 }
 

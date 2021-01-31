@@ -1,4 +1,8 @@
-﻿using System;
+﻿using RomanPort.LibEmbeddedSDR.Framework.Debugger;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace RomanPort.LibEmbeddedSDR.LinuxCMD
 {
@@ -6,14 +10,15 @@ namespace RomanPort.LibEmbeddedSDR.LinuxCMD
     {
         static void Main(string[] args)
         {
-            //Create display
+            //Create parts
             FramebufferDisplay display = new FramebufferDisplay();
+            EmbeddedDevice device = new EmbeddedDevice();
 
             //Create session
-            SdrSession session = new SdrSession(display, 16384);
+            SDR.Configure(display, device);
 
-            //Run
-            session.Run();
+            //Go
+            SDR.Run();
         }
     }
 }
